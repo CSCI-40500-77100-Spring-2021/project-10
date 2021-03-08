@@ -1,5 +1,8 @@
 # MealSnap Android App
 
+## Product Overview
+This app allows you organize your food pictures an an organized way as well as share it with other people. 
+
 ## Requirements
  - [Android Studio](https://developer.android.com/studio)
 
