@@ -28,6 +28,9 @@ If this is the first time you're using Android Studio, you won't have an emulato
 1. From the top toolbar of the IDE, right before the green run button, you can select your preferred emulator (optional)
 2. Select Run on the top toolbar
 
+## App Architecture
+![MealSnapArchitecture](https://user-images.githubusercontent.com/32821894/110404968-d5a30580-804d-11eb-91ad-71c7dc3400e1.png)
+
 ## References
 - [Backend](https://github.com/CSCI-40500-77100-Spring-2021/project-10__backend)
 - [Kanban Board](https://github.com/orgs/CSCI-40500-77100-Spring-2021/projects/1)
