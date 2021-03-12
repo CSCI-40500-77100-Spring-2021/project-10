@@ -3,18 +3,19 @@ package com.example.mealsnap_prototype_1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class FeedActivity extends AppCompatActivity {
 
     ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_feed);
 
         listView = findViewById(R.id.listView);
 
@@ -29,5 +30,12 @@ public class MainActivity extends AppCompatActivity {
 
         listView.setAdapter(postAdapter);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //inflate menu, adds items to action bar
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 }
