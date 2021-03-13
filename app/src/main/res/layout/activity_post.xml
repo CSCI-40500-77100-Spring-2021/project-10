@@ -7,14 +7,14 @@
     android:layout_margin="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignupActivity">
+    tools:context=".PostActivity">
 
     <EditText
-        android:id="@+id/etDescription"
+        android:id="@+id/etTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Description..."/>
+        android:hint="Title"/>
 
     <Button
         android:id="@+id/btnCaptureImage"
@@ -28,11 +28,18 @@
         android:layout_height="200dp"
         tools:srcCompat = "@tools:sample/avatars"/>
 
-    <Button
-        android:id="@+id/btnSubmit"
+    <EditText
+        android:id="@+id/etDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Submit"/>
+        android:ems="10"
+        android:hint="Description..."/>
+
+    <Button
+        android:id="@+id/btnPost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Post"/>
 
 
 </LinearLayout>
