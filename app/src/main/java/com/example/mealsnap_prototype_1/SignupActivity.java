@@ -42,7 +42,6 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "onClick Sign Up Button");
-                Toast.makeText(SignupActivity.this, "Moving back to Login", Toast.LENGTH_SHORT).show();
                 goToLoginActivity();
             }
         });
