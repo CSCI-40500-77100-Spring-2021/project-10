@@ -21,7 +21,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private Button btnLogin;
-    private TextView signUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +31,6 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        signUp = findViewById(R.id.signUp);
-
-        signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG, "onClick Sign Up Button");
-                Toast.makeText(LoginActivity.this, "Moving to Sign Up", Toast.LENGTH_SHORT).show();
-                goToSignupActivity();
-            }
-        });
 
         //on click move to next activity
         btnLogin.setOnClickListener(new View.OnClickListener() {
