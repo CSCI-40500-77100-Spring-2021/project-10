@@ -62,7 +62,7 @@ public class ConfigActivity extends AppCompatActivity {
 
     //moves to loadMainAppActivity
     private void loadMainAppActivity() {
-        Intent i = new Intent(this, SignupActivity.class);
+        Intent i = new Intent(this, OnboardingActivity.class);
         startActivity(i);
         finish();
     }
