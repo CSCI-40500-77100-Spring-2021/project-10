@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.TextView;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -44,6 +46,12 @@ public class LoginActivity extends AppCompatActivity {
     //moves to FeedActivity
     private void goToFeedActivity() {
         Intent i = new Intent(this, FeedActivity.class);
+        startActivity(i);
+        finish();
+    }
+
+    private void goToSignupActivity() {
+        Intent i = new Intent(this, SignupActivity.class);
         startActivity(i);
         finish();
     }

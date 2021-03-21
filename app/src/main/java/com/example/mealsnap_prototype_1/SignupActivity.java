@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class SignupActivity extends AppCompatActivity {
@@ -21,6 +22,7 @@ public class SignupActivity extends AppCompatActivity {
     EditText etgivenPassword;
     EditText etgivenagainPassword;
     Button btnSignUp;
+    ImageButton backToLogin;
 
 
     @Override
@@ -34,6 +36,15 @@ public class SignupActivity extends AppCompatActivity {
         etgivenPassword = findViewById(R.id.etgivenPassword);
         etgivenagainPassword = findViewById(R.id.etgivenagainPassword);
         btnSignUp = findViewById(R.id.btnSignUp);
+        backToLogin = findViewById(R.id.backToLogin);
+
+        backToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "onClick Sign Up Button");
+                goToLoginActivity();
+            }
+        });
 
         //on click move to next activity
         btnSignUp.setOnClickListener(new View.OnClickListener() {
@@ -43,8 +54,7 @@ public class SignupActivity extends AppCompatActivity {
                 Toast.makeText(SignupActivity.this, "Signed Up!, Moving to Login", Toast.LENGTH_SHORT).show();
                 goToLoginActivity();
             }
-        });
-
+            });
 
     }
 
