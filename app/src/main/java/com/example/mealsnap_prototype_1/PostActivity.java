@@ -22,10 +22,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class PostActivity extends AppCompatActivity {
 
@@ -39,9 +47,8 @@ public class PostActivity extends AppCompatActivity {
     private Button btnCaptureImage;
     private ImageView ivPostImage;
     private Button btnPost;
-
-    //for photo path
-    String currentPhotoPath;
+    public File photoFile;
+    public  String currentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +68,54 @@ public class PostActivity extends AppCompatActivity {
                 askCameraPermission();
             }
         });
+
+        ////PARSE STUFF TO BE REMOVED
+        btnPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String description = etDescription.getText().toString();
+                String title = etTitle.getText().toString();
+                if(description.isEmpty()){
+                    Toast.makeText(PostActivity.this, "Description can't be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(title.isEmpty()){
+                    Toast.makeText(PostActivity.this, "Title can't be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                savePost(title, description, currentUser);
+                //goToFeedActivity();
+
+            }
+        });
+        ////PARSE STUFF TO BE REMOVED
     }
+
+    ////PARSE STUFF TO BE REMOVED
+    private void savePost(String title, String description, ParseUser currentUser) {
+        ParsePost post = new ParsePost();
+        post.setDescription(description);
+        post.setImage(new ParseFile(photoFile)); //super hardcoded, photofile is currently being overwritten
+        post.setTitle(title);
+        post.setUser(currentUser);
+        post.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e != null){
+                    Log.e(TAG, "Error while saving", e);
+                    Toast.makeText(PostActivity.this, "Failed to save.", Toast.LENGTH_SHORT).show();
+                }
+                Log.i(TAG, "Post was saved successfully!");
+                etDescription.setText("");
+                etTitle.setText("");
+                ivPostImage.setImageResource(0);
+                finish();
+            }
+        });
+    }
+    ////PARSE STUFF TO BE REMOVED
+
 
     //ask for camera permission
     private void askCameraPermission() {
@@ -112,6 +166,7 @@ public class PostActivity extends AppCompatActivity {
         );
         // Save a file: path for use with ACTION_VIEW intents
         currentPhotoPath = image.getAbsolutePath();
+        photoFile = image;
         return image;
     }
 
@@ -136,5 +191,12 @@ public class PostActivity extends AppCompatActivity {
                 startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
             }
         }
+    }
+
+    //moves to FeedActivity
+    private void goToFeedActivity() {
+        Intent i = new Intent(this, FeedActivity.class);
+        startActivity(i);
+        finish();
     }
 }
