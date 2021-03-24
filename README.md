@@ -7,7 +7,7 @@ This app allows you catalogue your food pictures an organized way as well as sha
  - [Android Studio](https://developer.android.com/studio)
 
 ## Release
-Release is an APK file. To install it on an android emulator, drag the APK file to the emulator. See above section for how to install an android emulator
+Release is an APK file. To install it on an android emulator, drag the APK file to the emulator. See section below for how to install an new android emulator if you are unfamiliar.
 
 ## Getting Started
 
@@ -22,7 +22,7 @@ Release is an APK file. To install it on an android emulator, drag the APK file 
 If this is the first time you're using Android Studio, you won't have an emulator already instead. To install a new emulator, following the following steps.
 1. From Android Studio, navigate to tools -> AVD Manager
 2. Select "Create Virtual Device" on bottom left side of panel
-3. Select your preferred device -> Select R system image -> Click Finish
+3. Select your preferred device -> Select API Level 28 -> Click Finish
 
 #### Running App on an Emulator
 1. From the top toolbar of the IDE, right before the green run button, you can select your preferred emulator (optional)
