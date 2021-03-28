@@ -1,4 +1,4 @@
-package com.example.mealsnap_prototype_1;
+package com.example.mealsnap_prototype_2;
 
 import org.junit.Test;
 
