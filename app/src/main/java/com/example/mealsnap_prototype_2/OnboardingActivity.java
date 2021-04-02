@@ -24,29 +24,7 @@ public class OnboardingActivity extends AppCompatActivity {
         btnToSignUp = findViewById(R.id.btnToSignUp);
 
         tvOnboard.setText("Meal Snap");
-        btnToLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToLogin();
-            }
-        });
-        btnToSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToSignUp();
-            }
-        });
-    }
-
-    private void goToLogin() {
-        Intent i = new Intent(this, LoginActivity.class);
-        startActivity(i);
-        finish();
-    }
-
-    private void goToSignUp() {
-        Intent i = new Intent(this, SignupActivity.class);
-        startActivity(i);
-        finish();
+        btnToLogin.setOnClickListener(v -> startActivity(new Intent(OnboardingActivity.this, LoginActivity.class)));
+        btnToSignUp.setOnClickListener(v -> startActivity(new Intent(OnboardingActivity.this, SignupActivity.class)));
     }
 }

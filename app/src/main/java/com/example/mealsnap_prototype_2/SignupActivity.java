@@ -18,7 +18,6 @@ public class SignupActivity extends AppCompatActivity {
     EditText etSignupemail;
     EditText etSignuppass;
     Button btnSignUp;
-    FloatingActionButton tmpBSignup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,33 +29,16 @@ public class SignupActivity extends AppCompatActivity {
         etSignupemail = findViewById(R.id.etSignupemail);
         etSignuppass = findViewById(R.id.etSignuppass);
         btnSignUp = findViewById(R.id.btnSignUp);
-        tmpBSignup = findViewById(R.id.tmpBSignup);
 
         tvSignup.setText("Get Started!");
 
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToMainActivity();
-            }
-        });
+        btnSignUp.setOnClickListener(v -> goToMainActivity());
 
-        tmpBSignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goBackToOnboarding();
-            }
-        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void goToMainActivity() {
         Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-        finish();
-    }
-
-    private void goBackToOnboarding() {
-        Intent i = new Intent(this, OnboardingActivity.class);
         startActivity(i);
         finish();
     }
