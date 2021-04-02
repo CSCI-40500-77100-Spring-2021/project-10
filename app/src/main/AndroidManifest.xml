@@ -9,14 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MealSnap_Prototype_2">
-        <activity android:name=".ComposerActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".ProfileActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".LoginActivity"
-            android:parentActivityName=".OnboardingActivity"/>
-        <activity android:name=".SignupActivity"
-            android:parentActivityName=".OnboardingActivity"/>
+        <activity android:name=".PostDetailActivity"></activity>
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".PhotoDetailActivity" />
+        <activity android:name=".SearchDetailActivity" />
+        <activity
+            android:name=".ComposerActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ProfileActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:parentActivityName=".OnboardingActivity" />
+        <activity
+            android:name=".SignupActivity"
+            android:parentActivityName=".OnboardingActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ConfigActivity" />
         <activity android:name=".OnboardingActivity">
