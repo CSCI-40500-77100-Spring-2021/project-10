@@ -26,8 +26,8 @@
             android:name=".SignupActivity"
             android:parentActivityName=".OnboardingActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".ConfigActivity" />
-        <activity android:name=".OnboardingActivity">
+        <activity android:name=".OnboardingActivity" />
+        <activity android:name=".ConfigActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
