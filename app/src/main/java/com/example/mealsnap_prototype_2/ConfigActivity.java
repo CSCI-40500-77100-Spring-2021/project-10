@@ -37,7 +37,7 @@ public class ConfigActivity extends AppCompatActivity {
         AuthHandler.signOut(new AuthEvents() {
             @Override
             public void onSuccess() {
-                AuthHandler.signIn("heygirl", "Heygirl1223~", new AuthEvents() {
+                AuthHandler.signIn("heygirl", "Heygirl123~", new AuthEvents() {
                     @Override
                     public void onSuccess() {
                         Log.i("heyyyaaa","IT WORKED JESUS");

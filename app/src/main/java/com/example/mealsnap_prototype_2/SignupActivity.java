@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import services.authhandler.AuthEvents;
+import services.authhandler.AuthHandler;
+
 public class SignupActivity extends AppCompatActivity {
 
     TextView tvSignup;
@@ -32,13 +35,21 @@ public class SignupActivity extends AppCompatActivity {
 
         tvSignup.setText("Get Started!");
 
-        btnSignUp.setOnClickListener(v -> goToMainActivity());
+        //TODO Create button states with greyed out if all fields are not filled in
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO Call Auth Sign In after all fields have been entered
+                //If grey out method is not used a bug exists where once fields are entered properly after being changed it still fails to sign up
+                goToConfirmActivity();
+            }
+        });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    private void goToMainActivity() {
-        Intent i = new Intent(this, MainActivity.class);
+    private void goToConfirmActivity() {
+        Intent i = new Intent(this, ConfirmActivity.class);
         startActivity(i);
         finish();
     }

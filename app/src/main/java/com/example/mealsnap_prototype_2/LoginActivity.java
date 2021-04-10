@@ -40,15 +40,44 @@ public class LoginActivity extends AppCompatActivity {
 
         tvLogin.setText("Welcome Back");
 
-
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        //TODO Create button states with greyed out if all fields are not filled in
+        btnLogin.setOnClickListener(v -> AuthHandler.signOut(new AuthEvents() {
             @Override
-            public void onClick(View v) {
-                goToMainActivity();
-                //TODO add amplify function
+            public void onSuccess() {
+                AuthHandler.signIn(etLoginuser.getText().toString(), etLoginpass.getText().toString(), new AuthEvents() {
+                    @Override
+                    public void onSuccess() {
+                        Log.i(TAG,"Outter signout passed");
+                        Log.i(TAG,"Signed in successfully");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(LoginActivity.this, "Logged In!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        goToMainActivity();
+                    }
 
+                    @Override
+                    public void onFailure(AuthException authError) {
+                        Log.i(TAG,"Sign in failed");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(LoginActivity.this, "Username or Password Didn't Match", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        //TODO Error Handling
+                    }
+                });
             }
-        });
+
+            @Override
+            public void onFailure(AuthException authError) {
+                Log.i(TAG, "Outter signout failed");
+                //TODO Error Handling
+            }
+        }));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
