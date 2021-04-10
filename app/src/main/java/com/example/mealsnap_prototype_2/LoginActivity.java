@@ -4,14 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.amplifyframework.auth.AuthException;
+import com.example.mealsnap_prototype_2.fragments.ExploreFragment;
+import com.example.mealsnap_prototype_2.fragments.GalleryFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import services.authhandler.AuthEvents;
+import services.authhandler.AuthHandler;
+
 public class LoginActivity extends AppCompatActivity {
+
+    private final String TAG = "LoginActivity";
 
     TextView tvLogin;
     EditText etLoginuser;
@@ -30,7 +40,15 @@ public class LoginActivity extends AppCompatActivity {
 
         tvLogin.setText("Welcome Back");
 
-        btnLogin.setOnClickListener(v -> goToMainActivity());
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToMainActivity();
+                //TODO add amplify function
+
+            }
+        });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

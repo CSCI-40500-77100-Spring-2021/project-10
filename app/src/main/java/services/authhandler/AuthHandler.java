@@ -8,29 +8,47 @@ import com.amplifyframework.core.Amplify;
 
 public class AuthHandler{
 
-    public static void signUp(String email, String username, String password){
+    public static void signUp(String email, String username, String password, AuthEvents eventStatus){
         AuthSignUpOptions options = AuthSignUpOptions.builder()
                 .userAttribute(AuthUserAttributeKey.email(), email)
                 .build();
         Amplify.Auth.signUp(username, password, options,
-                result -> Log.i("AuthQuickStart", "Result: " + result.toString()),
-                error -> Log.e("AuthQuickStart", "Sign up failed", error)
+                result -> {
+                eventStatus.onSuccess();
+                Log.i("AuthQuickStart", "Result: " + result.toString());
+                },
+                error -> {
+                eventStatus.onFailure(error);
+                Log.e("AuthQuickStart", "Sign up failed", error);
+                }
         );
     }
 
-    public static void signIn(String username, String password){
+    public static void signIn(String username, String password, AuthEvents eventStatus){
         Amplify.Auth.signIn(
                 username,
                 password,
-                result -> Log.i("AuthQuickstart", result.isSignInComplete() ? "Sign in succeeded" : "Sign in not complete"),
-                error -> Log.e("AuthQuickstart", error.toString())
+                result -> {
+                    eventStatus.onSuccess();
+                    Log.i("AuthQuickstart", result.isSignInComplete() ? "Sign in succeeded" : "Sign in not complete");
+                },
+                error -> {
+                    eventStatus.onFailure(error);
+                    Log.e("AuthQuickstart", error.toString());
+                }
         );
     }
 
-    public static void signOut(){
+    public static void signOut(AuthEvents eventStatus){
         Amplify.Auth.signOut(
-                () -> Log.i("AuthQuickstart", "Signed out successfully"),
-                error -> Log.e("AuthQuickstart", error.toString())
+                () -> {
+                    eventStatus.onSuccess();
+                    Log.i("AuthQuickstart", "Signed out successfully");
+                },
+                error -> {
+                    eventStatus.onFailure(error);
+                    Log.e("AuthQuickstart", error.toString());
+                }
         );
     }
 
