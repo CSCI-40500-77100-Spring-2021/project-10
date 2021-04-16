@@ -41,14 +41,20 @@ public class LoginActivity extends AppCompatActivity {
         tvLogin.setText("Welcome Back");
 
         //TODO Create button states with greyed out if all fields are not filled in
-        btnLogin.setOnClickListener(v -> AuthHandler.signOut(new AuthEvents() {
+        btnLogin.setOnClickListener(v -> handleSignin());
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void handleSignin() {
+        AuthHandler.signOut(new AuthEvents() {
             @Override
             public void onSuccess() {
                 AuthHandler.signIn(etLoginuser.getText().toString(), etLoginpass.getText().toString(), new AuthEvents() {
                     @Override
                     public void onSuccess() {
-                        Log.i(TAG,"Outter signout passed");
-                        Log.i(TAG,"Signed in successfully");
+                        Log.i(TAG, "Outter signout passed");
+                        Log.i(TAG, "Signed in successfully");
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -60,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(AuthException authError) {
-                        Log.i(TAG,"Sign in failed");
+                        Log.i(TAG, "Sign in failed");
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -77,9 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i(TAG, "Outter signout failed");
                 //TODO Error Handling
             }
-        }));
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        });
     }
 
     private void goToMainActivity() {

@@ -32,32 +32,6 @@ public class ConfigActivity extends AppCompatActivity {
             Log.e("MyAmplifyApp", "Could not initialize AmplifyService", error);
         }
 
-        //AuthHandler.signUp("svhnstorage@gmail.com", "heygirl", "Heygirl123~");
-
-        AuthHandler.signOut(new AuthEvents() {
-            @Override
-            public void onSuccess() {
-                AuthHandler.signIn("heygirl", "Heygirl123~", new AuthEvents() {
-                    @Override
-                    public void onSuccess() {
-                        Log.i("heyyyaaa","IT WORKED JESUS");
-                    }
-
-                    @Override
-                    public void onFailure(AuthException authError) {
-                        Log.i("heyyyaaa","IT FUCKED JESUS");
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure(AuthException authError) {
-
-            }
-        });
-        //AuthHandler.confirmSignUp("heygirl", "");
-
-        //AuthHandler.signOut();
         goToOnboardingActivity();
     }
 

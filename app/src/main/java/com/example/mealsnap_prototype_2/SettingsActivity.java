@@ -29,27 +29,29 @@ public class SettingsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        btnLogout.setOnClickListener(v -> {
-            AuthHandler.signOut(new AuthEvents() {
-                @Override
-                public void onSuccess() {
-                    Log.i(TAG, "Logged out successfully.");
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(SettingsActivity.this, "Logged Out!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
+        btnLogout.setOnClickListener(v -> handleLogout());
+    }
 
-                @Override
-                public void onFailure(AuthException authError) {
-                    Log.i(TAG, "Log out failed.");
-                    //TODO handle error
-                }
-            });
-            goBackToLogin();
+    private void handleLogout() {
+        AuthHandler.signOut(new AuthEvents() {
+            @Override
+            public void onSuccess() {
+                Log.i(TAG, "Logged out successfully.");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(SettingsActivity.this, "Logged Out!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(AuthException authError) {
+                Log.i(TAG, "Log out failed.");
+                //TODO handle error
+            }
         });
+        goBackToLogin();
     }
 
     private void goBackToLogin() {
