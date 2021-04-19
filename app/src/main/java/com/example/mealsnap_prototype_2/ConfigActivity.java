@@ -11,26 +11,42 @@ import com.amazonaws.mobileconnectors.cognitoauth.Auth;
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.auth.AuthException;
 
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import services.authhandler.APIRequest;
+import services.authhandler.APIServiceResponseEvent;
 import services.authhandler.AmplifyService;
 import services.authhandler.AuthEvents;
 import services.authhandler.AuthHandler;
 
 public class ConfigActivity extends AppCompatActivity {
 
+    private static final String TAG = "ConfigActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config);
 
-        Log.i("MyAmplifyApp", "1st Passing on config");
+        Log.i(TAG, "1st Passing on config");
 
 
         try {
             AmplifyService.configure(getApplicationContext());
-            Log.i("MyAmplifyApp", "Initialized AmplifyService");
+            Log.i(TAG, "Initialized AmplifyService");
         } catch (AmplifyException error) {
-            Log.e("MyAmplifyApp", "Could not initialize AmplifyService", error);
+            Log.e(TAG, "Could not initialize AmplifyService", error);
         }
+
+
+
+        //TODO
+        //See if existing session if so sent past login to home
+        //Connect UI to sign up
+        //Finish hitting rest of routes methods
+        //Retrieve post method
+
 
         goToOnboardingActivity();
     }
