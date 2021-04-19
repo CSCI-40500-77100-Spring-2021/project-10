@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.amazonaws.mobileconnectors.cognitoauth.Auth;
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.auth.AuthException;
+import com.amplifyframework.core.Amplify;
 
 import java.io.IOException;
 
@@ -41,10 +42,11 @@ public class ConfigActivity extends AppCompatActivity {
 
 
 
+
         //TODO
-        //See if existing session if so sent past login to home
+
         //Connect UI to sign up
-        //Finish hitting rest of routes methods
+        //Finish hitting rest of routes methods (post stuck i think need endpoint)
         //Retrieve post method
 
 
@@ -56,5 +58,4 @@ public class ConfigActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
-
 }

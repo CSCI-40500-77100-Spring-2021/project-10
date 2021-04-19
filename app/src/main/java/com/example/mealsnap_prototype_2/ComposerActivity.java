@@ -23,7 +23,7 @@ public class ComposerActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Test API Get Request
-        APIRequest.get("echo", new APIServiceResponseEvent() {
+        APIRequest.post("echo", new APIServiceResponseEvent() {
             @Override
             public void onSuccess(ResponseBody requestBody) {
                 try {
@@ -40,6 +40,7 @@ public class ComposerActivity extends AppCompatActivity {
                 ioException.printStackTrace();
             }
         });
+
 
     }
 }
