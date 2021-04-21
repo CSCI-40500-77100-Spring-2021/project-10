@@ -40,16 +40,6 @@ public class ConfigActivity extends AppCompatActivity {
             Log.e(TAG, "Could not initialize AmplifyService", error);
         }
 
-
-
-
-        //TODO
-
-        //Connect UI to sign up
-        //Finish hitting rest of routes methods (post stuck i think need endpoint)
-        //Retrieve post method
-
-
         goToOnboardingActivity();
     }
 
