@@ -39,7 +39,8 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
 
         tvLogin.setText("Welcome Back");
-
+        etLoginuser.setText("heygirl");
+        etLoginpass.setText("Heygirl123~");
         //TODO Create button states with greyed out if all fields are not filled in
         btnLogin.setOnClickListener(v -> handleSignin());
 

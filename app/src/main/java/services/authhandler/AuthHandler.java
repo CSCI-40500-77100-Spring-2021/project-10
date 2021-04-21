@@ -2,7 +2,9 @@ package services.authhandler;
 
 import android.util.Log;
 
+import com.amplifyframework.auth.AuthException;
 import com.amplifyframework.auth.AuthUserAttributeKey;
+import com.amplifyframework.auth.cognito.AWSCognitoAuthSession;
 import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
 
@@ -56,4 +58,37 @@ public class AuthHandler{
         );
     }
    */
+
+    public static void retrieveJWTToken(JWTCallback callback){
+        Amplify.Auth.fetchAuthSession(
+            result -> {
+                callback.onSuccess(((AWSCognitoAuthSession) result).getUserPoolTokens().getValue().getIdToken());
+                Log.i("AuthQuickStart", "IdentityId: " + ((AWSCognitoAuthSession) result).getUserPoolTokens().getValue().getIdToken());
+            },
+            error ->{
+                callback.onFailure(error.getMessage());
+                Log.e("AuthQuickStart", error.toString());
+            }
+        );
+    }
+
+    public static void restoreUser(RestoreUser restoreUser){
+        Amplify.Auth.fetchAuthSession(
+                result -> {
+                    if(result.isSignedIn()) {
+                        restoreUser.onSuccess(result);
+                    }
+                    else{
+                        restoreUser.onFailure(new AuthException("User is not signed in","Go sign in"));
+                    }
+
+
+                },
+                error -> {
+                    restoreUser.onFailure(error);
+                    Log.e("AuthQuickStart", error.toString());
+                }
+        );
+    }
+
 }
