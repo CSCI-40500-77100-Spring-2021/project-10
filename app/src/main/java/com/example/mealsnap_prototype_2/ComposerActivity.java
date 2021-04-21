@@ -23,7 +23,7 @@ public class ComposerActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Test API Get Request
-        APIRequest.post("echo", new APIServiceResponseEvent() {
+        APIRequest.post("echo", "test thing",new APIServiceResponseEvent() {
             @Override
             public void onSuccess(ResponseBody requestBody) {
                 try {

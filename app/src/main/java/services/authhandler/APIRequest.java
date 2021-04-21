@@ -20,6 +20,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import okio.ByteString;
 
 public class APIRequest {
     public static final String TAG = "APIRequest";
@@ -70,15 +71,9 @@ public class APIRequest {
     public static final MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("text/x-markdown; charset=utf-8");
 
     //take body as input and make generic, go define each type of post image, string, like, etc
-    public static void post(String url, APIServiceResponseEvent responseEvent) {
-        String postBody = ""
-                + "Releases\n"
-                + "--------\n"
-                + "\n"
-                + " * _1.0_ May 6, 2013\n"
-                + " * _1.1_ June 15, 2013\n"
-                + " * _1.2_ August 11, 2013\n";
-        RequestBody body = RequestBody.create(postBody, MEDIA_TYPE_MARKDOWN);
+    public static <T> void post(String url, T postBody, APIServiceResponseEvent responseEvent) {
+
+        RequestBody body = RequestBody.create((ByteString) postBody, MEDIA_TYPE_MARKDOWN);
 
         AuthHandler.retrieveJWTToken(new JWTCallback() {
             @Override
