@@ -1,25 +1,15 @@
-package com.example.mealsnap_prototype_2;
+package com.example.mealsnap_prototype_2.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.amazonaws.mobileconnectors.cognitoauth.Auth;
 import com.amplifyframework.AmplifyException;
-import com.amplifyframework.auth.AuthException;
-import com.amplifyframework.core.Amplify;
 
-import java.io.IOException;
-
-import okhttp3.ResponseBody;
-import services.authhandler.APIRequest;
-import services.authhandler.APIServiceResponseEvent;
-import services.authhandler.AmplifyService;
-import services.authhandler.AuthEvents;
-import services.authhandler.AuthHandler;
+import com.example.mealsnap_prototype_2.R;
+import com.example.mealsnap_prototype_2.services.Amplify;
 
 public class ConfigActivity extends AppCompatActivity {
 
@@ -34,7 +24,7 @@ public class ConfigActivity extends AppCompatActivity {
 
 
         try {
-            AmplifyService.configure(getApplicationContext());
+            Amplify.configure(getApplicationContext());
             Log.i(TAG, "Initialized AmplifyService");
         } catch (AmplifyException error) {
             Log.e(TAG, "Could not initialize AmplifyService", error);

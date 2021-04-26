@@ -1,16 +1,13 @@
-package services.authhandler;
+package com.example.mealsnap_prototype_2.services.appapi;
 
 import android.util.Log;
 
-import com.amazonaws.mobileconnectors.cognitoauth.Auth;
-import com.amplifyframework.auth.AuthSession;
-import com.google.gson.Gson;
+import com.example.mealsnap_prototype_2.interfaces.ResultCallback;
+import com.example.mealsnap_prototype_2.models.user.Auth;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.PipedOutputStream;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -21,22 +18,35 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import okio.ByteString;
 
+// TODO: Create specialized APIRequestError class
 public class APIRequest {
-    public static final String TAG = "APIRequest";
-    public static String ROOT_URL = "https://dbkw974ay1.execute-api.us-east-1.amazonaws.com/prod/";
-
+    private static final String TAG = "APIRequest";
     private static final OkHttpClient client = new OkHttpClient();
+    private static final String ROOT_URL = "https://dbkw974ay1.execute-api.us-east-1.amazonaws.com/prod/";
 
-    public static void get(String url, APIServiceResponseEvent responseEvent) {
-        AuthHandler.retrieveJWTToken(new JWTCallback() {
+    /**
+     * Generates appropriate request url given a route
+     *
+     * @param route Request Route. Ex: /echo | echo
+     * @return Reformatted URL
+     */
+    private static String GetRequestURL(String route) {
+        if (route.length() > 0 && route.charAt(0) == '/') {
+            return ROOT_URL + route.substring(1); // Removes leading slash
+        }
+        return ROOT_URL + route;
+    }
+
+    //Gets from given root + given url
+    public static void get(String url, ResultCallback<ResponseBody, IOException> responseEvent) {
+        Auth.retrieveJWTToken(new ResultCallback<String, Exception>() {
             @Override
             public void onSuccess(String token) {
                 Request request = new Request.Builder()
-                    .url(ROOT_URL + url)
-                    .header("Authorization", token)
-                    .build();
+                        .url(GetRequestURL(url))
+                        .header("Authorization", token)
+                        .build();
 
                 client.newCall(request).enqueue(new Callback() {
                     @Override
@@ -62,24 +72,24 @@ public class APIRequest {
             }
 
             @Override
-            public void onFailure(String failMessage) {
-                Log.i(TAG, "Jwtfailed");
+            public void onError(Exception error) {
+                responseEvent.onError(new IOException(error.getMessage()));
             }
         });
     }
 
-    public static void post(String url, JSONObject postBody, APIServiceResponseEvent responseEvent) {
+    public static void post(String url, JSONObject postBody, ResultCallback<ResponseBody, IOException> responseEvent) {
         RequestBody body = RequestBody.create(postBody.toString(), MediaType.parse("application/json; charset=utf-8"));
         Log.i(TAG, postBody.toString());
 
-        AuthHandler.retrieveJWTToken(new JWTCallback() {
+        Auth.retrieveJWTToken(new ResultCallback<String, Exception>() {
             @Override
             public void onSuccess(String token) {
                 Request request = new Request.Builder()
-                    .url(ROOT_URL + url)
-                    .header("Authorization", token)
-                    .post(body)
-                    .build();
+                        .url(GetRequestURL(url))
+                        .header("Authorization", token)
+                        .post(body)
+                        .build();
 
                 client.newCall(request).enqueue(new Callback() {
                     @Override
@@ -90,7 +100,6 @@ public class APIRequest {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         try (ResponseBody responseBody = response.body()) {
-                            Log.i(TAG, response.body().toString());
                             if (!response.isSuccessful())
                                 throw new IOException("Unexpected code " + response);
 
@@ -105,8 +114,8 @@ public class APIRequest {
             }
 
             @Override
-            public void onFailure(String failMessage) {
-                Log.i(TAG,"JWT Failed");
+            public void onError(Exception e) {
+                responseEvent.onError(new IOException(e.getMessage()));
             }
         });
 

@@ -1,4 +1,4 @@
-package com.example.mealsnap_prototype_2;
+package com.example.mealsnap_prototype_2.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,10 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import services.authhandler.AuthEvents;
-import services.authhandler.AuthHandler;
+import com.example.mealsnap_prototype_2.R;
 
 public class SignupActivity extends AppCompatActivity {
 

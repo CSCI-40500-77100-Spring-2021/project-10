@@ -1,20 +1,19 @@
-package com.example.mealsnap_prototype_2;
+package com.example.mealsnap_prototype_2.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.amplifyframework.auth.AuthException;
 import com.amplifyframework.auth.AuthSession;
+import com.example.mealsnap_prototype_2.R;
+import com.example.mealsnap_prototype_2.interfaces.ResultCallback;
 
-import services.authhandler.AuthEvents;
-import services.authhandler.AuthHandler;
-import services.authhandler.RestoreUser;
+import com.example.mealsnap_prototype_2.models.user.Auth;
 
 public class OnboardingActivity extends AppCompatActivity {
 
@@ -36,7 +35,7 @@ public class OnboardingActivity extends AppCompatActivity {
         btnToLogin.setOnClickListener(v -> startActivity(new Intent(OnboardingActivity.this, LoginActivity.class)));
         btnToSignUp.setOnClickListener(v -> startActivity(new Intent(OnboardingActivity.this, SignupActivity.class)));
 
-        AuthHandler.restoreUser(new RestoreUser() {
+        Auth.restoreUser(new ResultCallback<AuthSession, AuthException>() {
             @Override
             public void onSuccess(AuthSession result) {
                 Log.i(TAG, "auto logged in moving to main activity");
@@ -44,8 +43,8 @@ public class OnboardingActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(AuthException authError) {
-                Log.i(TAG, "autologin failed");
+            public void onError(AuthException authError) {
+                Log.i(TAG, "auto login failed");
             }
         });
     }

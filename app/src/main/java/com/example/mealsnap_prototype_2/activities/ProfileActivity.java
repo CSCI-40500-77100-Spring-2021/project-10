@@ -1,4 +1,4 @@
-package com.example.mealsnap_prototype_2;
+package com.example.mealsnap_prototype_2.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.example.mealsnap_prototype_2.R;
 
 public class ProfileActivity extends AppCompatActivity {
 

@@ -1,19 +1,25 @@
-package com.example.mealsnap_prototype_2;
+package com.example.mealsnap_prototype_2.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.mealsnap_prototype_2.fragments.ExploreFragment;
-import com.example.mealsnap_prototype_2.fragments.GalleryFragment;
+import com.example.mealsnap_prototype_2.R;
+import com.example.mealsnap_prototype_2.activities.fragments.ExploreFragment;
+import com.example.mealsnap_prototype_2.activities.fragments.GalleryFragment;
+import com.example.mealsnap_prototype_2.interfaces.ResultCallback;
+import com.example.mealsnap_prototype_2.models.gallery.UserGallery;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.io.EOFException;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 

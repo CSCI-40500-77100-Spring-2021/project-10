@@ -1,23 +1,20 @@
-package com.example.mealsnap_prototype_2;
+package com.example.mealsnap_prototype_2.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amplifyframework.auth.AuthException;
-import com.example.mealsnap_prototype_2.fragments.ExploreFragment;
-import com.example.mealsnap_prototype_2.fragments.GalleryFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.mealsnap_prototype_2.R;
+import com.example.mealsnap_prototype_2.interfaces.ResultCallback;
 
-import services.authhandler.AuthEvents;
-import services.authhandler.AuthHandler;
+import com.example.mealsnap_prototype_2.models.user.Auth;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -48,12 +45,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void handleSignin() {
-        AuthHandler.signOut(new AuthEvents() {
+        Auth.signOut(new ResultCallback<Boolean, AuthException>() {
             @Override
-            public void onSuccess() {
-                AuthHandler.signIn(etLoginuser.getText().toString(), etLoginpass.getText().toString(), new AuthEvents() {
+            public void onSuccess(Boolean _) {
+                Auth.signIn(etLoginuser.getText().toString(), etLoginpass.getText().toString(), new ResultCallback<Boolean, AuthException>() {
                     @Override
-                    public void onSuccess() {
+                    public void onSuccess(Boolean _) {
                         Log.i(TAG, "Outter signout passed");
                         Log.i(TAG, "Signed in successfully");
                         runOnUiThread(new Runnable() {
@@ -66,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(AuthException authError) {
+                    public void onError(AuthException authError) {
                         Log.i(TAG, "Sign in failed");
                         runOnUiThread(new Runnable() {
                             @Override
@@ -80,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(AuthException authError) {
+            public void onError(AuthException authError) {
                 Log.i(TAG, "Outter signout failed");
                 //TODO Error Handling
             }

@@ -1,4 +1,4 @@
-package com.example.mealsnap_prototype_2.fragments;
+package com.example.mealsnap_prototype_2.activities.fragments;
 
 import android.os.Bundle;
 

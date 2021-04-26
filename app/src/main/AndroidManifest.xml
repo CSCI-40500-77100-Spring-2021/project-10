@@ -11,26 +11,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MealSnap_Prototype_2">
-        <activity android:name=".ConfirmActivity"></activity>
-        <activity android:name=".PostDetailActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".PhotoDetailActivity" />
-        <activity android:name=".SearchDetailActivity" />
+        <activity android:name=".activities.ConfirmActivity"></activity>
+        <activity android:name=".activities.PostDetailActivity" />
+        <activity android:name=".activities.SettingsActivity" />
+        <activity android:name=".activities.PhotoDetailActivity" />
+        <activity android:name=".activities.SearchDetailActivity" />
         <activity
-            android:name=".ComposerActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name=".activities.ComposerActivity"
+            android:parentActivityName=".activities.MainActivity" />
         <activity
-            android:name=".ProfileActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name=".activities.ProfileActivity"
+            android:parentActivityName=".activities.MainActivity" />
         <activity
-            android:name=".LoginActivity"
-            android:parentActivityName=".OnboardingActivity" />
+            android:name=".activities.LoginActivity"
+            android:parentActivityName=".activities.OnboardingActivity" />
         <activity
-            android:name=".SignupActivity"
-            android:parentActivityName=".OnboardingActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".OnboardingActivity" />
-        <activity android:name=".ConfigActivity">
+            android:name=".activities.SignupActivity"
+            android:parentActivityName=".activities.OnboardingActivity" />
+        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.OnboardingActivity" />
+        <activity android:name=".activities.ConfigActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

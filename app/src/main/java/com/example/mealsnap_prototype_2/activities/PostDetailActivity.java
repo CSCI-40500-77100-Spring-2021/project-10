@@ -1,15 +1,17 @@
-package com.example.mealsnap_prototype_2;
+package com.example.mealsnap_prototype_2.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class PhotoDetailActivity extends AppCompatActivity {
+import com.example.mealsnap_prototype_2.R;
+
+public class PostDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_photo_detail);
+        setContentView(R.layout.activity_post_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }
