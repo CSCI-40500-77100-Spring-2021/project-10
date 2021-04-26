@@ -14,8 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
-import services.authhandler.APIRequest;
-import services.authhandler.APIServiceResponseEvent;
+import com.example.mealsnap_prototype_2.services.appapi.APIRequest;
 
 public class UserGallery {
     private static final String TAG = UserGallery.class.getSimpleName();
@@ -40,7 +39,7 @@ public class UserGallery {
     ) {
         Log.i(TAG, "Getting Photo for " + userId);
         String url = "user/" + userId + "/gallery";
-        APIRequest.get(url, new APIServiceResponseEvent() {
+        APIRequest.get(url, new ResultCallback<ResponseBody, IOException>() {
             @Override
             public void onSuccess(ResponseBody responseBody) {
                 try {
@@ -48,13 +47,14 @@ public class UserGallery {
                     UserGallery gallery = new UserGallery(response);
                     callback.onSuccess(gallery);
                 } catch (IOException e) {
+                    callback.onError(e);
                     e.printStackTrace();
                 }
             }
 
             @Override
-            public void onFailure(IOException ioException) {
-
+            public void onError(IOException ioException) {
+                callback.onError(ioException);
             }
         });
     }
@@ -88,7 +88,7 @@ public class UserGallery {
             callback.onError(endOfPage);
             return;
         }
-        APIRequest.get(nextPage, new APIServiceResponseEvent() {
+        APIRequest.get(nextPage, new ResultCallback<ResponseBody, IOException>() {
             @Override
             public void onSuccess(ResponseBody responseBody) {
                 try {
@@ -102,7 +102,7 @@ public class UserGallery {
             }
 
             @Override
-            public void onFailure(IOException ioException) {
+            public void onError(IOException ioException) {
                 callback.onError(ioException);
             }
         });

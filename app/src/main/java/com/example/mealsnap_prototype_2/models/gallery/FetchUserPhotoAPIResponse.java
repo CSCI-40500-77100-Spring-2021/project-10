@@ -1,8 +1,8 @@
 package com.example.mealsnap_prototype_2.models.gallery;
 
-import services.authhandler.APIRequestPageResponse;
+import com.example.mealsnap_prototype_2.services.appapi.common.PageResponse;
 
 class FetchUserPhotoAPIResponse {
     GalleryPhoto[] result;
-    APIRequestPageResponse page;
+    PageResponse page;
 }

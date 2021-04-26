@@ -1,19 +1,25 @@
-package com.example.mealsnap_prototype_2;
+package com.example.mealsnap_prototype_2.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.mealsnap_prototype_2.fragments.ExploreFragment;
-import com.example.mealsnap_prototype_2.fragments.GalleryFragment;
+import com.example.mealsnap_prototype_2.R;
+import com.example.mealsnap_prototype_2.activities.fragments.ExploreFragment;
+import com.example.mealsnap_prototype_2.activities.fragments.GalleryFragment;
+import com.example.mealsnap_prototype_2.interfaces.ResultCallback;
+import com.example.mealsnap_prototype_2.models.gallery.UserGallery;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.io.EOFException;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.action_gallery:
                     Toast.makeText(MainActivity.this, "Gallery!", Toast.LENGTH_SHORT).show();
                     fragment = new GalleryFragment();
+                    dummyFN();
                     break;
                 case R.id.action_explore:
                     Toast.makeText(MainActivity.this, "Explore?", Toast.LENGTH_SHORT).show();
@@ -49,6 +56,38 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btmHome.setSelectedItemId(R.id.action_gallery);
+    }
+
+    private void dummyFN() {
+        String tag = "DummyFN";
+        UserGallery.GetUserGallery("8b8b14a9-b180-4116-a73c-b6dc5a5fb291", new ResultCallback<UserGallery, IOException>() {
+            @Override
+            public void onSuccess(UserGallery gallery) {
+                Log.i(tag, gallery.toString());
+                // Loading More Data
+                gallery.loadMore(new ResultCallback<Boolean, Exception>() {
+                    @Override
+                    public void onSuccess(Boolean _) {
+                        // More image has been loaded
+                        Log.i(tag, gallery.toString());
+                    }
+
+                    @Override
+                    public void onError(Exception error) {
+                        if(error instanceof EOFException){
+                            Log.i(tag, "No more pages");
+                        }else{
+                            Log.i(tag, error.getMessage());
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onError(IOException error) {
+                Log.e(tag, error.getMessage());
+            }
+        });
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -1,10 +1,12 @@
-package com.example.mealsnap_prototype_2;
+package com.example.mealsnap_prototype_2.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.example.mealsnap_prototype_2.R;
+import com.example.mealsnap_prototype_2.interfaces.ResultCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,8 +14,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import okhttp3.ResponseBody;
-import services.authhandler.APIRequest;
-import services.authhandler.APIServiceResponseEvent;
+import com.example.mealsnap_prototype_2.services.appapi.APIRequest;
 
 public class ComposerActivity extends AppCompatActivity {
 
@@ -32,7 +33,7 @@ public class ComposerActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         //Test API Post Request
-        APIRequest.post("echo", json, new APIServiceResponseEvent() {
+        APIRequest.post("echo", json, new ResultCallback<ResponseBody, IOException>() {
             @Override
             public void onSuccess(ResponseBody requestBody) {
                 try {
@@ -44,7 +45,7 @@ public class ComposerActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(IOException ioException) {
+            public void onError(IOException ioException) {
                 Log.i(TAG, "Api get req failed");
                 ioException.printStackTrace();
             }
