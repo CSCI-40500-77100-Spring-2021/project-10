@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import okhttp3.ResponseBody;
@@ -22,8 +25,14 @@ public class ComposerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_composer);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //Test API Get Request
-        APIRequest.post("echo", "test thing",new APIServiceResponseEvent() {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("name", "student");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //Test API Post Request
+        APIRequest.post("echo", json, new APIServiceResponseEvent() {
             @Override
             public void onSuccess(ResponseBody requestBody) {
                 try {

@@ -7,6 +7,7 @@ import com.amplifyframework.auth.AuthSession;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.PipedOutputStream;
@@ -28,7 +29,6 @@ public class APIRequest {
 
     private static final OkHttpClient client = new OkHttpClient();
 
-    //Gets from given root + given url
     public static void get(String url, APIServiceResponseEvent responseEvent) {
         AuthHandler.retrieveJWTToken(new JWTCallback() {
             @Override
@@ -68,21 +68,18 @@ public class APIRequest {
         });
     }
 
-    public static final MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("text/x-markdown; charset=utf-8");
-
-    //take body as input and make generic, go define each type of post image, string, like, etc
-    public static <T> void post(String url, T postBody, APIServiceResponseEvent responseEvent) {
-
-        RequestBody body = RequestBody.create((ByteString) postBody, MEDIA_TYPE_MARKDOWN);
+    public static void post(String url, JSONObject postBody, APIServiceResponseEvent responseEvent) {
+        RequestBody body = RequestBody.create(postBody.toString(), MediaType.parse("application/json; charset=utf-8"));
+        Log.i(TAG, postBody.toString());
 
         AuthHandler.retrieveJWTToken(new JWTCallback() {
             @Override
             public void onSuccess(String token) {
                 Request request = new Request.Builder()
-                        .url(ROOT_URL + url)
-                        .header("Authorization", token)
-                        .post(body)
-                        .build();
+                    .url(ROOT_URL + url)
+                    .header("Authorization", token)
+                    .post(body)
+                    .build();
 
                 client.newCall(request).enqueue(new Callback() {
                     @Override
@@ -109,11 +106,9 @@ public class APIRequest {
 
             @Override
             public void onFailure(String failMessage) {
-                Log.i(TAG,"fukin suck");
+                Log.i(TAG,"JWT Failed");
             }
         });
 
     }
-
-    //TODO ^ for post and delete
 }
