@@ -8,9 +8,7 @@ import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
-
 import java.io.IOException;
-import java.io.PipedOutputStream;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -24,17 +22,30 @@ import okhttp3.ResponseBody;
 import okio.ByteString;
 
 public class APIRequest {
-    public static final String TAG = "APIRequest";
-    public static String ROOT_URL = "https://dbkw974ay1.execute-api.us-east-1.amazonaws.com/prod/";
+    private static final String TAG = "APIRequest";
+    private static String ROOT_URL = "https://dbkw974ay1.execute-api.us-east-1.amazonaws.com/prod/";
 
     private static final OkHttpClient client = new OkHttpClient();
 
+    /**
+     * Generates appropriate request url given a route
+     * @param route Request Route. Ex: /echo | echo
+     * @return Reformatted URL
+     */
+    private static String GetRequestURL(String route) {
+        if(route.length() > 0 && route.charAt(0) == '/') {
+            return ROOT_URL + route.substring(1); // Removes leading slash
+        }
+        return ROOT_URL + route;
+    }
+
+    //Gets from given root + given url
     public static void get(String url, APIServiceResponseEvent responseEvent) {
         AuthHandler.retrieveJWTToken(new JWTCallback() {
             @Override
             public void onSuccess(String token) {
                 Request request = new Request.Builder()
-                    .url(ROOT_URL + url)
+                    .url(GetRequestURL(url))
                     .header("Authorization", token)
                     .build();
 
@@ -76,7 +87,7 @@ public class APIRequest {
             @Override
             public void onSuccess(String token) {
                 Request request = new Request.Builder()
-                    .url(ROOT_URL + url)
+                    .url(GetRequestURL(url))
                     .header("Authorization", token)
                     .post(body)
                     .build();
@@ -90,7 +101,6 @@ public class APIRequest {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         try (ResponseBody responseBody = response.body()) {
-                            Log.i(TAG, response.body().toString());
                             if (!response.isSuccessful())
                                 throw new IOException("Unexpected code " + response);
 
