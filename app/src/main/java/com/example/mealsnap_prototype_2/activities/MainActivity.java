@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.action_gallery:
                     Toast.makeText(MainActivity.this, "Gallery!", Toast.LENGTH_SHORT).show();
                     fragment = new GalleryFragment();
-                    dummyFN();
                     break;
                 case R.id.action_explore:
                     Toast.makeText(MainActivity.this, "Explore?", Toast.LENGTH_SHORT).show();
@@ -56,38 +55,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btmHome.setSelectedItemId(R.id.action_gallery);
-    }
-
-    private void dummyFN() {
-        String tag = "DummyFN";
-        UserGallery.GetUserGallery("8b8b14a9-b180-4116-a73c-b6dc5a5fb291", new ResultCallback<UserGallery, IOException>() {
-            @Override
-            public void onSuccess(UserGallery gallery) {
-                Log.i(tag, gallery.toString());
-                // Loading More Data
-                gallery.loadMore(new ResultCallback<Boolean, Exception>() {
-                    @Override
-                    public void onSuccess(Boolean _) {
-                        // More image has been loaded
-                        Log.i(tag, gallery.toString());
-                    }
-
-                    @Override
-                    public void onError(Exception error) {
-                        if(error instanceof EOFException){
-                            Log.i(tag, "No more pages");
-                        }else{
-                            Log.i(tag, error.getMessage());
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onError(IOException error) {
-                Log.e(tag, error.getMessage());
-            }
-        });
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
