@@ -1,0 +1,123 @@
+package com.example.mealsnap_prototype_2.models.gallery;
+
+import android.util.Log;
+
+import androidx.annotation.Nullable;
+
+import com.example.mealsnap_prototype_2.interfaces.ResultCallback;
+import com.google.gson.Gson;
+
+import java.io.EOFException;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
+import okhttp3.ResponseBody;
+import services.authhandler.APIRequest;
+import services.authhandler.APIServiceResponseEvent;
+
+public class UserGallery {
+    private static final String TAG = UserGallery.class.getSimpleName();
+    @Nullable
+    String nextPage; // Nullable
+    List<GalleryPhoto> galleryPhotoItems;
+
+    private UserGallery(FetchUserPhotoAPIResponse response) {
+        galleryPhotoItems = new LinkedList(Arrays.asList(response.result));
+        nextPage = response.page.getNext();
+    }
+
+    /**
+     * Retrieves Gallery for a User
+     *
+     * @param userId   Target User's Id
+     * @param callback On Request Complete
+     */
+    public static void GetUserGallery(
+            String userId,
+            ResultCallback<UserGallery, IOException> callback
+    ) {
+        Log.i(TAG, "Getting Photo for " + userId);
+        String url = "user/" + userId + "/gallery";
+        APIRequest.get(url, new APIServiceResponseEvent() {
+            @Override
+            public void onSuccess(ResponseBody responseBody) {
+                try {
+                    FetchUserPhotoAPIResponse response = ParseAPIResponse(responseBody);
+                    UserGallery gallery = new UserGallery(response);
+                    callback.onSuccess(gallery);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(IOException ioException) {
+
+            }
+        });
+    }
+
+    private static FetchUserPhotoAPIResponse ParseAPIResponse(ResponseBody body) throws IOException {
+        Gson gson = new Gson();
+        FetchUserPhotoAPIResponse response = gson.fromJson(body.string(), FetchUserPhotoAPIResponse.class);
+        return response;
+    }
+
+    /**
+     * Get all gallery photos for current user gallery
+     *
+     * @return List<GalleryPhoto>
+     */
+    public List<GalleryPhoto> items() {
+        return galleryPhotoItems;
+    }
+
+    /**
+     * Load More Images
+     *
+     * @param callback What to do when completed
+     * @throws EOFException If no more pages left
+     * @throws IOException  if API Error
+     */
+    public void loadMore(ResultCallback<Boolean, Exception> callback) {
+        if (nextPage == null) {
+            // TODO: Throw End Of Page error
+            EOFException endOfPage = new EOFException();
+            callback.onError(endOfPage);
+            return;
+        }
+        APIRequest.get(nextPage, new APIServiceResponseEvent() {
+            @Override
+            public void onSuccess(ResponseBody responseBody) {
+                try {
+                    FetchUserPhotoAPIResponse response = ParseAPIResponse(responseBody);
+                    nextPage = response.page.getNext();
+                    galleryPhotoItems.addAll(Arrays.asList(response.result));
+                    callback.onSuccess(true);
+                } catch (IOException e) {
+                    callback.onError(e);
+                }
+            }
+
+            @Override
+            public void onFailure(IOException ioException) {
+                callback.onError(ioException);
+            }
+        });
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (GalleryPhoto photo : galleryPhotoItems) {
+            sb.append("\t").append(photo.toString()).append("\n");
+        }
+        return "UserGallery{\n" +
+                "\tTotal items=" + galleryPhotoItems.size() + ", nextPage='" + nextPage + '\n' +
+                "\n" +
+                sb.toString() +
+                '}';
+    }
+}
