@@ -4,6 +4,6 @@ import java.io.IOException;
 import okhttp3.ResponseBody;
 
 public interface APIServiceResponseEvent{
-    void onSuccess(ResponseBody requestBody);
+    void onSuccess(ResponseBody responseBody);
     void onFailure(IOException ioException);
 }
