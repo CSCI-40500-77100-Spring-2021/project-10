@@ -43,4 +43,10 @@ public class GalleryPhoto {
                 ", likeCount=" + likeCount +
                 '}';
     }
+
+    public GalleryPhoto(String title, String description, String imageUrl) {
+        this.title = title;
+        this.description = description;
+        this.imageUrl = imageUrl;
+    }
 }
