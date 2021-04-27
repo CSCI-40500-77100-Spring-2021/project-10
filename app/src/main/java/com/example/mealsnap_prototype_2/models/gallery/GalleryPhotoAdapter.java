@@ -64,6 +64,5 @@ public class GalleryPhotoAdapter extends RecyclerView.Adapter<GalleryPhotoAdapte
                 Glide.with(context).load(imageUrl).into(ivPhoto);
             }
         }
-
     }
 }
