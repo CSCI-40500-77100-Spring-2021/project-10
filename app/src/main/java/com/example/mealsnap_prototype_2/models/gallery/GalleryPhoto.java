@@ -1,6 +1,6 @@
 package com.example.mealsnap_prototype_2.models.gallery;
 
-class GalleryPhoto {
+public class GalleryPhoto {
     private String id;
     private String title;
     private String description;
