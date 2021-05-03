@@ -23,7 +23,7 @@ public class OnboardingActivity extends AppCompatActivity {
         btnToLogin = findViewById(R.id.btnToLogin);
         btnToSignUp = findViewById(R.id.btnToSignUp);
 
-        tvOnboard.setText("Meal Snap");
+        tvOnboard.setText("Meal      Snap");
         btnToLogin.setOnClickListener(v -> startActivity(new Intent(OnboardingActivity.this, LoginActivity.class)));
         btnToSignUp.setOnClickListener(v -> startActivity(new Intent(OnboardingActivity.this, SignupActivity.class)));
     }

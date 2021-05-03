@@ -9,45 +9,49 @@
 
     <TextView
         android:id="@+id/tvSignup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MealSnapLogo"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="175dp"
-        tools:text="Message" />
+        android:layout_marginTop="147dp"
+        tools:text="Meal      Snap" />
 
     <EditText
         android:id="@+id/etSignupuser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MealSnapTextView"
         android:layout_below="@+id/tvSignup"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
+        android:layout_marginTop="12dp"
         android:hint="Username" />
 
     <EditText
         android:id="@+id/etSignupemail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MealSnapTextView"
         android:layout_below="@+id/etSignupuser"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="7dp"
         android:hint="Email" />
 
     <EditText
         android:id="@+id/etSignuppass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MealSnapTextView"
         android:layout_below="@+id/etSignupemail"
         android:layout_centerHorizontal="true"
-        android:ems="10"
+        android:layout_marginTop="6dp"
         android:hint="Password" />
 
     <Button
         android:id="@+id/btnSignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MealSnapButton"
         android:layout_below="@+id/etSignuppass"
+        android:layout_marginTop="25dp"
+        android:text="Get Started!" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="80dp"
+        android:layout_height="55dp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Sign up" />
+        android:layout_marginTop="153dp"
+        app:srcCompat="@android:drawable/ic_menu_camera" />
 
 </RelativeLayout>

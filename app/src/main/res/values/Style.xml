@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="MealSnapButton">
+
+    <style name="MealSnapLogo">
+      <item name="android:textSize">45dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColorLink">#000000</item>
         <item name="android:layout_width">320dp</item>
-        <item name="android:gravity">center_horizontal|center_vertical</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:backgroundTint">"#000000"</item><![CDATA[]]></style>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">164dp</item>
+    </style>
 
     <style name="MealSnapTextView">
         <item name="android:layout_width">320dp</item>
@@ -13,8 +20,23 @@
         <item name="android:background">@android:drawable/editbox_background_normal</item>
         <item name="android:layout_marginEnd">24dp</item>
         <item name="android:layout_marginStart">24dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
         <item name="android:padding">12dp</item>
         <item name="android:ems">12</item>
     </style>
+
+    <style name="MealSnapButton">
+        <item name="android:layout_width">320dp</item>
+        <item name="android:gravity">center_horizontal|center_vertical</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">#000000</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginStart">24dp</item>
+    </style>
+
+
+
+
+
 
 </resources>

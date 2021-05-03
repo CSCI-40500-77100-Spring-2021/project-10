@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         etLoginpass = findViewById(R.id.etLoginpass);
         btnLogin = findViewById(R.id.btnLogin);
 
-        tvLogin.setText("Welcome Back");
+       // tvLogin.setText("Welcome Back");
 
         btnLogin.setOnClickListener(v -> goToMainActivity());
 
