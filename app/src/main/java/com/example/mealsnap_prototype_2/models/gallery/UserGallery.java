@@ -1,6 +1,7 @@
 package com.example.mealsnap_prototype_2.models.gallery;
 
 import android.util.Log;
+import android.widget.Gallery;
 
 import androidx.annotation.Nullable;
 
@@ -10,11 +11,15 @@ import com.google.gson.Gson;
 import java.io.EOFException;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
 import com.example.mealsnap_prototype_2.services.appapi.APIRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class UserGallery {
     private static final String TAG = UserGallery.class.getSimpleName();
@@ -55,6 +60,36 @@ public class UserGallery {
             @Override
             public void onError(IOException ioException) {
                 callback.onError(ioException);
+            }
+        });
+    }
+
+    public static void AddImage(
+        String title,
+        String description,
+        String base64ImageData,
+        ResultCallback<GalleryPhoto, Exception> callback
+    ) throws JSONException {
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("title", title);
+        requestBody.put("description", description);
+        requestBody.put("encodedImage", base64ImageData);
+        APIRequest.post("me/gallery/add-entry", requestBody, new ResultCallback<ResponseBody, IOException>() {
+            @Override
+            public void onSuccess(ResponseBody body) {
+                Gson gson = new Gson();
+                try {
+                    GalleryPhoto addedPhoto = gson.fromJson(body.string(), GalleryPhoto.class);
+                    callback.onSuccess(addedPhoto);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    callback.onError(new Exception("Unable to parse response to json"));
+                }
+            }
+
+            @Override
+            public void onError(IOException error) {
+                callback.onError(error);
             }
         });
     }
