@@ -1,9 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.ComposerActivity">
+    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:id="@+id/etComposeTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Photo Title..."/>
+
+    <EditText
+        android:id="@+id/etComposeDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Description..."/>
+
+    <Button
+        android:id="@+id/btnCaptureImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Take Picture"/>
+
+    <ImageView
+        android:id="@+id/ivPreviewPostImage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        tools:srcCompat = "@tools:sample/avatars"/>
+
+    <Button
+        android:id="@+id/btnComposeSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Post!"/>
+
+
+</LinearLayout>

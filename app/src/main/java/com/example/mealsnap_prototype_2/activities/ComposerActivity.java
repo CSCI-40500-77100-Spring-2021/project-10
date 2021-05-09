@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.mealsnap_prototype_2.R;
 import com.example.mealsnap_prototype_2.interfaces.ResultCallback;
@@ -20,37 +24,40 @@ public class ComposerActivity extends AppCompatActivity {
 
     private static final String TAG = "ComposerActivity";
 
+    private EditText etComposeTitle;
+    private EditText etComposeDescription;
+    private Button btnCaptureImage;
+    private ImageView ivPreviewPostImage;
+    private Button btnComposeSubmit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_composer);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        JSONObject json = new JSONObject();
-        try {
-            json.put("name", "student");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        //Test API Post Request
-        APIRequest.post("echo", json, new ResultCallback<ResponseBody, IOException>() {
-            @Override
-            public void onSuccess(ResponseBody requestBody) {
-                try {
-                    Log.i(TAG, requestBody.string());
-                } catch (IOException ioException) {
-                    Log.i(TAG, "Api get req failed");
-                    ioException.printStackTrace();
-                }
-            }
+        etComposeTitle = findViewById(R.id.etComposeTitle);
+        etComposeDescription = findViewById(R.id.etComposeDescription);
+        btnCaptureImage = findViewById(R.id.btnCaptureImage);
+        ivPreviewPostImage = findViewById(R.id.ivPreviewPostImage);
+        btnComposeSubmit = findViewById(R.id.btnComposeSubmit);
 
-            @Override
-            public void onError(IOException ioException) {
-                Log.i(TAG, "Api get req failed");
-                ioException.printStackTrace();
-            }
-        });
+        btnCaptureImage.setOnClickListener(v -> launchCamera());
+        btnComposeSubmit.setOnClickListener(v -> submitPost());
+
+        //TODO error handle missing input fields
+
+    }
 
 
+    private void submitPost() {
+        //TODO make gallery photo object with given fields
+        //TODO call api to post gallery photo
+
+    }
+
+    //TODO define this
+    private void launchCamera() {
+        //TODO a bunch of photo handling idk where to start rn
     }
 }
