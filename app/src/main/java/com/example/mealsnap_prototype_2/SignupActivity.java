@@ -30,7 +30,7 @@ public class SignupActivity extends AppCompatActivity {
         etSignuppass = findViewById(R.id.etSignuppass);
         btnSignUp = findViewById(R.id.btnSignUp);
 
-        tvSignup.setText("Meal      Snap");
+        tvSignup.setText("Get Started!");
 
         btnSignUp.setOnClickListener(v -> goToMainActivity());
 
