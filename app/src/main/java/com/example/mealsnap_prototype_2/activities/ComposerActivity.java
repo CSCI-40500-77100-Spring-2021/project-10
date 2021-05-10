@@ -65,22 +65,17 @@ public class ComposerActivity extends AppCompatActivity {
         btnComposeSubmit.setOnClickListener(v -> submitPost());
 
         //TODO error handle missing input fields
-
     }
-
 
     private void submitPost() {
         //TODO make gallery photo object with given fields
         //TODO call api to post gallery photo
-
     }
 
-    //TODO define this
     private void launchCamera() throws IOException {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         photoFile = getPhotoFile(FILE_NAME);
 
-        //takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFile);
         Uri fileProvider = FileProvider.getUriForFile(this, "com.example.mealsnap_prototype_2.fileprovider", photoFile);
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
 
@@ -99,8 +94,9 @@ public class ComposerActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(requestCode == REQUEST_CODE && resultCode == RESULT_OK){
-            //Bitmap takenImage = (Bitmap) data.getExtras().get("data");
             Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+            //TODO above ^ prob take bitmap and convert to base 64 emcoding for submitPost to use
+            // (not sure if make the base64 a straight up field in the file or maybe add helper method
             ivPreviewPostImage.setImageBitmap(takenImage);
         }else{
             super.onActivityResult(requestCode, resultCode, data);
