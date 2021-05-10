@@ -13,6 +13,17 @@
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.MealSnap_Prototype_2">
+        <provider
+            android:authorities="com.example.mealsnap_prototype_2.fileprovider"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/fileprovider"/>
+        </provider>
+
+        
         <activity android:name=".activities.ConfirmActivity"></activity>
         <activity android:name=".activities.PostDetailActivity" />
         <activity android:name=".activities.SettingsActivity" />
