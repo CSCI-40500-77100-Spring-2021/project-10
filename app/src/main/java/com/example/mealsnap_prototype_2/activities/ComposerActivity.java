@@ -1,13 +1,18 @@
 package com.example.mealsnap_prototype_2.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.mealsnap_prototype_2.R;
 import com.example.mealsnap_prototype_2.interfaces.ResultCallback;
@@ -23,6 +28,7 @@ import com.example.mealsnap_prototype_2.services.appapi.APIRequest;
 public class ComposerActivity extends AppCompatActivity {
 
     private static final String TAG = "ComposerActivity";
+    private static final int REQUEST_CODE = 42;
 
     private EditText etComposeTitle;
     private EditText etComposeDescription;
@@ -42,7 +48,9 @@ public class ComposerActivity extends AppCompatActivity {
         ivPreviewPostImage = findViewById(R.id.ivPreviewPostImage);
         btnComposeSubmit = findViewById(R.id.btnComposeSubmit);
 
-        btnCaptureImage.setOnClickListener(v -> launchCamera());
+        btnCaptureImage.setOnClickListener(v -> {
+            launchCamera();
+        });
         btnComposeSubmit.setOnClickListener(v -> submitPost());
 
         //TODO error handle missing input fields
@@ -58,6 +66,22 @@ public class ComposerActivity extends AppCompatActivity {
 
     //TODO define this
     private void launchCamera() {
-        //TODO a bunch of photo handling idk where to start rn
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if(takePictureIntent.resolveActivity(getPackageManager()) != null){
+            startActivityForResult(takePictureIntent, REQUEST_CODE);
+        } else{
+            Toast.makeText(this, "cant open cam", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK){
+            Bitmap takenImage = (Bitmap) data.getExtras().get("data");
+            ivPreviewPostImage.setImageBitmap(takenImage);
+        }else{
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }
